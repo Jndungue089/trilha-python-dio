@@ -1,7 +1,10 @@
 import textwrap
 from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
+from pathlib import Path
 
+
+ROOT_PATH = Path(__file__).parent
 
 class ContasIterador:
     def __init__(self, contas):
@@ -232,6 +235,13 @@ def log_transacao(func):
         resultado = func(*args, **kwargs)
         data_hora = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # TODO: alterar a implementação para salvar em arquivo.
+        try:
+            with open(ROOT_PATH / "1lorem.txt", "w") as arquivo:
+                arquivo.write(f"\n[{data_hora}] Função '{func.__name__}' executada com argumentos {args} e {kwargs}. Retornou {resultado}\n")
+        except IOError as exc:
+            print(f"Ocorreu um erro de E/S: {exc}")
+        except UnicodeDecodeError as exc:
+            print(exc)
         # f"[{data_hora}] Função '{func.__name__}' executada com argumentos {args} e {kwargs}. Retornou {result}\n"
         print(f"{data_hora}: {func.__name__.upper()}")
         return resultado

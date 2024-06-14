@@ -1,3 +1,4 @@
+# src/main.py
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -8,13 +9,11 @@ from src.controllers import auth, post
 from src.database import database
 from src.exceptions import NotFoundPostError
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await database.connect()
     yield
     await database.disconnect()
-
 
 tags_metadata = [
     {
@@ -38,7 +37,6 @@ servers = [
         "description": "Ambiente de produção",
     },
 ]
-
 
 app = FastAPI(
     title="DIO blog API",
@@ -75,7 +73,6 @@ app.add_middleware(
 
 app.include_router(auth.router, tags=["auth"])
 app.include_router(post.router, tags=["post"])
-
 
 @app.exception_handler(NotFoundPostError)
 async def not_found_post_exception_handler(request: Request, exc: NotFoundPostError):

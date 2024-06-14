@@ -275,6 +275,7 @@ def exibir_extrato(clientes):
     print("\n================ EXTRATO ================")
     # TODO: atualizar a implementação para utilizar o gerador definido em Historico
     transacoes = conta.historico.transacoes
+    Historico(transacoes)
 
     extrato = ""
     if not transacoes:
@@ -326,9 +327,10 @@ def criar_conta(numero_conta, clientes, contas):
 
 def listar_contas(contas):
     # TODO: alterar implementação, para utilizar a classe ContaIterador
-    for conta in contas:
-        print("=" * 100)
-        print(textwrap.dedent(str(conta)))
+    ContaIterador(contas)
+    # for conta in contas:
+    #     print("=" * 100)
+    #     print(textwrap.dedent(str(conta)))
 
 
 def main():
